@@ -1,0 +1,19 @@
+.alive {
+  background-color: rgb(104, 104, 104);
+}
+
+.dead {
+  background-color: white;
+}
+
+.cell {
+  width: 25px;
+  height: 25px;
+  border: 1px black solid;
+  border-radius: 50%;
+  margin: 3px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
