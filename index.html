@@ -8,6 +8,25 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <form id="form">
+      <select name="gridSize" id="gridSize">
+        <option value="6">6x6</option>
+        <option value="8">8x8</option>
+        <option value="10">10x10</option>
+        <option value="15">15x15</option>
+        <option value="20">20x20</option>
+        <option value="30">30x30</option>
+        <option value="50">50x50</option>
+        <option value="75">75x75</option>
+        <option value="100">100x100</option>
+      </select>
+      <select name="quantity" id="quantity">
+        <option value="2">Low</option>
+        <option value="4">Medium</option>
+        <option value="6">Large</option>
+      </select>
+      <button type="submit" />Start</button>
+    </form>
     <div class="board" id="board"></div>
     <script src="./script.js"></script>
   </body>
