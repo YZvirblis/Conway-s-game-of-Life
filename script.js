@@ -1,4 +1,4 @@
-const board = document.getElementById("board");
+let board = document.getElementById("board");
 const form = document.getElementById("form");
 
 let grid;
@@ -6,14 +6,20 @@ let numberOfCols;
 let numberOfRows;
 let quantity;
 let startUpdate;
+let speed;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   numberOfCols = parseInt(e.target.gridSize.value);
   numberOfRows = parseInt(e.target.gridSize.value);
   quantity = parseInt(e.target.quantity.value);
-  clearInterval(startUpdate);
-  setUpGrid();
+  if (e.target.speed.value === "stop") {
+    clearInterval(startUpdate);
+  } else {
+    speed = parseInt(e.target.speed.value);
+    clearInterval(startUpdate);
+    setUpGrid();
+  }
 });
 
 const createMatrix = (numOfCols, numOfRows) => {
@@ -32,6 +38,10 @@ const render = () => {
     currentRow.className = "row";
     for (let j = 0; j < numberOfRows; j++) {
       const element = document.createElement("div");
+      element.setAttribute("id", `${i}/${j}`);
+      element.onclick = function () {
+        handleCellClick(element, i, j);
+      };
       if (grid[i][j] === 1) {
         element.className = "cell alive";
         currentRow.appendChild(element);
@@ -44,6 +54,18 @@ const render = () => {
   }
   for (const column of columns) {
     board.appendChild(column);
+  }
+};
+
+const handleCellClick = (element, i, j) => {
+  if (element.className === "cell alive") {
+    const cell = document.getElementById(`${i}/${j}`);
+    grid[i][j] === 0 ? (grid[i][j] = 1) : (grid[i][j] = 0);
+    cell.className = "cell dead";
+  } else {
+    const cell = document.getElementById(`${i}/${j}`);
+    grid[i][j] === 0 ? (grid[i][j] = 1) : (grid[i][j] = 0);
+    cell.className = "cell alive";
   }
 };
 
@@ -79,20 +101,22 @@ const updateGrid = () => {
 };
 
 const setUpGrid = (e) => {
-  grid = createMatrix(numberOfCols, numberOfRows);
-  for (let i = 0; i < numberOfCols; i++) {
-    for (let j = 0; j < numberOfRows; j++) {
-      const random = Math.random() * 11;
-      if (random <= quantity) {
-        console.log(quantity);
-        grid[i][j] = 1;
-      } else {
-        grid[i][j] = 0;
+  if (!grid) {
+    grid = createMatrix(numberOfCols, numberOfRows);
+    for (let i = 0; i < numberOfCols; i++) {
+      for (let j = 0; j < numberOfRows; j++) {
+        const random = Math.random() * 11;
+        if (random <= quantity) {
+          console.log(quantity);
+          grid[i][j] = 1;
+        } else {
+          grid[i][j] = 0;
+        }
       }
     }
+    render();
   }
-  render();
   startUpdate = setInterval(() => {
     updateGrid();
-  }, 500);
+  }, speed);
 };
