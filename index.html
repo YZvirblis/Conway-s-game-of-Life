@@ -9,11 +9,13 @@
   </head>
   <body>
     <form id="form">
-      <select name="gridSize" id="gridSize">
-        <option value="6">6x6</option>
-        <option value="8">8x8</option>
-        <option value="10">10x10</option>
-        <option value="15">15x15</option>
+      <div class="form-wrapper">
+
+        <select name="gridSize" id="gridSize">
+          <option value="6">6x6</option>
+          <option value="8">8x8</option>
+          <option value="10">10x10</option>
+          <option value="15">15x15</option>
         <option value="20">20x20</option>
         <option value="30">30x30</option>
         <option value="50">50x50</option>
@@ -33,6 +35,7 @@
         <option value="200">Fast</option>
         <option value="0">Very Fast</option>
       </select>
+    </div>
       <button type="submit" />Start</button>
     </form>
     <div class="board" id="board"></div>

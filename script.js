@@ -9,6 +9,7 @@ let startUpdate;
 let speed;
 
 form.addEventListener("submit", (e) => {
+  console.log(e.target.speed.value, e.target.gridSize.value);
   e.preventDefault();
   numberOfCols = parseInt(e.target.gridSize.value);
   numberOfRows = parseInt(e.target.gridSize.value);
@@ -96,7 +97,12 @@ const updateGrid = () => {
       }
     }
   }
-  grid = newGrid;
+  if (grid !== newGrid) {
+    grid = newGrid;
+  } else {
+    clearInterval(startUpdate);
+    setUpGrid();
+  }
   render();
 };
 
